@@ -13,26 +13,21 @@ const App = () => {
     const handleImageUpload = (e) => {
         const file = e.target.files[0];
         setFile(file)
-        if (file && file.type.match('image.*')) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setImage(event.target.result);
-                setProcessedImage(null);
-            };
-            reader.readAsDataURL(file);
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setImage(imageUrl);
+            setProcessedImage(null); 
         }
     };
 
     const handleDrop = (e) => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
-        if (file && file.type.match('image.*')) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                setImage(event.target.result);
-                setProcessedImage(null);
-            };
-            reader.readAsDataURL(file);
+        setFile(file)
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setImage(imageUrl);
+            setProcessedImage(null); 
         }
     };
 
@@ -125,7 +120,7 @@ const App = () => {
                             <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                                 Select Image
                             </button>
-                            <p className="text-sm text-gray-400 mt-4">Supported formats: JPG, PNG, WEBP (up to 5MB)</p>
+                            <p className="text-sm text-gray-400 mt-4">Supported formats: JPG, PNG, WEBP</p>
                         </div>
                     </div>
                 ) : !processedImage ? (
